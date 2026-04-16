@@ -1,0 +1,5 @@
+.claude/*.local.md
+.claude/*.local.json
+.claude/typescript-refactor/
+.DS_Store
+node_modules/
