@@ -14,14 +14,19 @@ A **planning plugin**, not an implementation plugin. It does not write to your c
 
 ## Installation
 
-This repo does not ship a marketplace manifest, so cloning it is the install path. Clone this repository, then add it to Claude Code as a plugin:
-
 ```bash
-git clone https://github.com/TheMizeGuy/typescript-refactor-public.git
-claude --plugin-dir /path/to/typescript-refactor-public
+# 1. Add this repo as a marketplace
+claude plugin marketplace add https://github.com/TheMizeGuy/typescript-refactor-public.git
+
+# 2. Install the plugin
+claude plugin install typescript-refactor@typescript-refactor-public
+
+# 3. Restart Claude Code for the plugin to load
 ```
 
-Restart Claude Code, then verify with `claude plugin list` and look for `typescript-refactor`.
+After restart, verify with `claude plugin list`. Updates ship through the same channel: when a new release lands, run `claude plugin marketplace update typescript-refactor-public` then `claude plugin update typescript-refactor@typescript-refactor-public`, or accept the update prompt in `/plugin`.
+
+Manual alternative: `git clone https://github.com/TheMizeGuy/typescript-refactor-public.git` and load with `claude --plugin-dir <path>`.
 
 ## Skills
 
