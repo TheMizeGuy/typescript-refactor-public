@@ -18,6 +18,10 @@ Your job:
 4. Synthesize a combined audit report
 5. Write artifacts and summarize
 
+### Execution mode
+
+The dispatched agents inherit the session model -- always the strongest available Claude. Never block on, or wait for, a specific model that isn't the session model. For a small scope, when the session model is already the strongest available tier, the orchestrator may run the inventory pass inline in the main context instead of dispatching, provided the read-only, evidence-labeled discipline of the specialists' briefs is preserved.
+
 ## Step 1: Resolve scope
 
 Parse the argument. Empty = full project, else path/glob scope. Gather:
@@ -43,25 +47,29 @@ ONE `function_calls` block with both agents:
 Agent({
   description: "Audit: JS inventory cartographer",
   subagent_type: "typescript-refactor:js-inventory-cartographer",
-  model: "opus",
+  // omit model -- inherits the session model
   prompt: "<full briefing + 'Return your inventory report verbatim; I will persist.'>"
 })
 
 Agent({
   description: "Audit: Type surface analyst",
   subagent_type: "typescript-refactor:type-surface-analyst",
-  model: "opus",
+  // omit model -- inherits the session model
   prompt: "<full briefing>"
 })
 ```
 
 Persist each result to `wave-1/{js-inventory,type-surface}.md`.
 
+Then apply the **Wave 1 gate** from `${CLAUDE_PLUGIN_ROOT}/skills/typescript-refactor/references/wave-gates.md`: required sections present, every fact row carries an evidence label naming a re-checkable artifact (judge against that file's worked example), no role leakage, word caps. On failure, re-dispatch the failing specialist ONCE with the defective rows quoted verbatim; on a second failure, stop and report the exact defect.
+
 ## Step 4: Synthesize audit report
 
 Write `<PROJECT_ROOT>/docs/typescript-refactor/<YYYY-MM-DD>-<RUN_ID>-audit.md`.
 
 ## Step 5: Summary
+
+Do not print the summary until both wave-1 reports exist on the blackboard and the audit report's at-a-glance table has no blank cells (unresolved values say `OPEN-QUESTION`, never empty).
 
 ```
 JS Codebase Audit complete

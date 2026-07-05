@@ -13,7 +13,6 @@ description: |-
   </commentary>
   </example>
 tools: Read, Grep, Glob, Bash, mcp__plugin_serena_serena__activate_project
-model: opus
 color: red
 ---
 

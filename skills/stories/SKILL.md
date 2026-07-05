@@ -55,6 +55,12 @@ Generate `<BOARD_PATH>/../board-dag.md` with color-coded nodes per epic.
 
 ## Step 7: Summary
 
+Do not print the summary until all three verifications pass:
+
+1. `ls <BOARD_PATH>/TSR-*.md | wc -l` equals the slice count validated in Step 3
+2. Every id in every emitted story's `blocks`/`blocked-by` list has a matching story file on the board
+3. The DAG file contains a ` ```mermaid ` fence with one node per emitted story
+
 ```
 Stories handoff complete
 

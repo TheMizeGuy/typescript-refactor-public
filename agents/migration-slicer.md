@@ -10,7 +10,6 @@ description: |-
   assistant: "Sequencing migration slices with dependencies and cutover strategies."
   </example>
 tools: Read, Grep, Glob, Bash, mcp__plugin_serena_serena__activate_project, mcp__plugin_serena_serena__find_symbol, mcp__plugin_serena_serena__find_referencing_symbols, mcp__plugin_serena_serena__search_for_pattern
-model: opus
 color: magenta
 ---
 

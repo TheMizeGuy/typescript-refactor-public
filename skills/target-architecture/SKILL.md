@@ -19,6 +19,10 @@ Your job:
 3. Dispatch the typescript-target-architect agent
 4. Persist the output and summarize
 
+### Execution mode
+
+The dispatched agent inherits the session model -- always the strongest available Claude. Never block on, or wait for, a specific model that isn't the session model. When the session model is already the strongest available tier and the scope is small, the orchestrator may run this decision pass inline in the main context instead of dispatching, provided the evidence-citation discipline of the architect's brief is preserved.
+
 ## Step 1: Scope and context
 
 ```bash
@@ -50,12 +54,12 @@ mkdir -p <PROJECT_ROOT>/.claude/typescript-refactor/${RUN_ID}/wave-3
 Agent({
   description: "Target architecture decision",
   subagent_type: "typescript-refactor:typescript-target-architect",
-  model: "opus",
+  // omit model -- inherits the session model
   prompt: "<full briefing including PROJECT_ROOT, RUN_ID, USER_CONSTRAINTS, paths to any existing reports>"
 })
 ```
 
-Persist to `wave-3/target-architecture.md`.
+Acceptance gate before persisting -- from `${CLAUDE_PLUGIN_ROOT}/skills/typescript-refactor/references/wave-gates.md` (Wave 3a gate): every decision-matrix row carries an evidence class (`SOURCE`/`BUILD`/`INFERRED`/`TARGET-ASSUMPTION`) and a reference file citation -- an uncited recommendation is opinion. Choices must reference observed project facts, not generic preference. No migration sequencing (the slicer's job). On failure, re-dispatch ONCE quoting the uncited or defective rows; on a second failure, stop and report the defect. Then persist to `wave-3/target-architecture.md`.
 
 ## Step 5: Write artifact
 

@@ -10,7 +10,6 @@ description: |-
   assistant: "Synthesizing target architecture from inventory, type surface, boundaries, and tests."
   </example>
 tools: Read, Grep, Glob, Bash, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__query-docs, mcp__plugin_serena_serena__activate_project, mcp__plugin_serena_serena__list_dir
-model: opus
 color: magenta
 ---
 

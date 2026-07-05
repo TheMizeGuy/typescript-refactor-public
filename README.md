@@ -1,12 +1,12 @@
 # typescript-refactor
 
-Opus 4.7 JavaScript-to-TypeScript refactor planning specialist for [Claude Code](https://docs.anthropic.com/en/docs/build-with-claude/claude-code). Dispatches a team of 7 read-only senior planner agents in sequential waves to produce an evidence-tagged migration plan, scrum-master-format per-story markdown files, and a Mermaid dependency DAG.
+JavaScript-to-TypeScript refactor planning specialist for [Claude Code](https://docs.anthropic.com/en/docs/build-with-claude/claude-code), running on the session model (always the strongest available Claude). Dispatches a team of 7 read-only senior planner agents in sequential waves to produce an evidence-tagged migration plan, scrum-master-format per-story markdown files, and a Mermaid dependency DAG.
 
 ## What this is
 
 A **planning plugin**, not an implementation plugin. It does not write to your codebase. It produces:
 
-1. A consolidated migration plan with evidence labels (`SOURCE` / `BUILD` / `RUNTIME` / `INFERRED` / `TARGET-ASSUMPTION` / `OPEN-QUESTION`)
+1. A consolidated migration plan with evidence labels (`SOURCE` / `BUILD` / `RUNTIME` / `DOC` / `INFERRED` / `TARGET-ASSUMPTION` / `OPEN-QUESTION`) -- see `skills/typescript-refactor/references/wave-gates.md` for the full vocabulary and the acceptance gate applied after each wave
 2. A target-state architecture (tsconfig, framework, validation, data layer, test runner, CI gates) with reference citations
 3. A phased slice catalog (Foundation -> Boundaries -> Renames -> Framework -> Cleanup) with explicit dependencies and rollback plans
 4. A Mermaid dependency DAG
@@ -14,15 +14,14 @@ A **planning plugin**, not an implementation plugin. It does not write to your c
 
 ## Installation
 
-```bash
-claude plugin add TheMizeGuy/typescript-refactor-public
-```
-
-Or for local development:
+This repo does not ship a marketplace manifest, so cloning it is the install path. Clone this repository, then add it to Claude Code as a plugin:
 
 ```bash
+git clone https://github.com/TheMizeGuy/typescript-refactor-public.git
 claude --plugin-dir /path/to/typescript-refactor-public
 ```
+
+Restart Claude Code, then verify with `claude plugin list` and look for `typescript-refactor`.
 
 ## Skills
 
@@ -44,7 +43,7 @@ claude --plugin-dir /path/to/typescript-refactor-public
 
 ## Agent fleet
 
-All Opus 4.7, all read-only, dispatched by the main skill orchestrator.
+All inherit the session model (always the strongest available Claude), all read-only, dispatched by the main skill orchestrator.
 
 | Agent | Wave | Role |
 |---|---|---|
