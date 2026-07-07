@@ -105,7 +105,7 @@ Every acceptance criterion MUST contain at least one action verb from this set:
 
 ```
 exists, returns, passes, reports, contains, matches, succeeds, fails, exit 0, exit code,
->=, <=, >0 hit, 0 hits, tsc --noEmit, type-coverage, eslint, vitest, grep
+>=, <=, >0 hit, 0 hits, tsgo --noEmit, tsc --noEmit, type-coverage, eslint, vitest, grep
 ```
 
 If an AC is prose-only ("works correctly", "is faster"), the slicer must rephrase or the verifier must block.
@@ -123,7 +123,7 @@ A slice MUST be split before becoming a story if any of:
 ```markdown
 ---
 id: TSR-F-01
-title: Install TypeScript and write baseline tsconfig
+title: Install TypeScript + tsgo and write baseline tsconfig
 state: Backlog
 owner: ""
 priority: P0
@@ -138,9 +138,10 @@ scope:
   exclude:
     - "src/**"
 acceptance:
-  - "package.json devDependencies contains typescript >=5.4"
+  - "package.json devDependencies contains typescript >=6.0 and @typescript/native-preview"
   - "tsconfig.json exists at repo root"
   - "tsc --noEmit exit 0 against existing JS with allowJs=true"
+  - "npx tsgo --version succeeds"
   - "npx type-coverage --at-least 50 succeeds (baseline measurement)"
 dependencies:
   blocks: [TSR-F-02, TSR-F-03, TSR-F-04, TSR-F-05]
@@ -155,17 +156,18 @@ updated: 2026-04-14
 tags: [typescript-refactor, foundation, tsconfig]
 ---
 
-# TSR-F-01: Install TypeScript and write baseline tsconfig
+# TSR-F-01: Install TypeScript + tsgo and write baseline tsconfig
 
 ## Description
 Add TypeScript to devDependencies and write the baseline tsconfig with `allowJs: true, strict: false, noEmit: true, skipLibCheck: true`. This is the no-behavioral-change foundation slice -- every other slice depends on it.
 
 ## Technical notes
-Use the package manager already in the repo (detected by lockfile). Pin TypeScript to the latest stable 5.x. Do NOT enable strict mode in this slice.
+Use the package manager already in the repo (detected by lockfile). Pin TypeScript to the latest stable 6.x and install `@typescript/native-preview` (tsgo) alongside it -- tsgo becomes the sole typecheck gate at the C-01b promotion slice; during the allowJs phase, tsc gates the mixed surface. Do NOT enable strict mode in this slice.
 
 ## Acceptance criteria
 - Given the repo has no tsconfig at root, when this slice ships, then `tsconfig.json` exists with the agreed baseline shape.
-- `pnpm tsc --noEmit` (or equivalent) returns exit 0.
+- `pnpm tsc --noEmit` (or equivalent) returns exit 0 (allowJs-phase gate).
+- `npx tsgo --version` succeeds (gate-in-waiting, promoted at C-01b).
 - `npx type-coverage` reports a non-zero baseline percentage.
 - No file under `src/` was modified in this slice.
 
@@ -181,7 +183,8 @@ no-risk
 Revert the PR. No runtime behavior change.
 
 ## Verification commands
-- `pnpm tsc --noEmit` -- must exit 0
+- `pnpm tsc --noEmit` -- must exit 0 (allowJs-phase gate)
+- `npx tsgo --version` -- must succeed
 - `npx type-coverage --detail --strict --ignore-catch | tail -5` -- capture baseline %
 - `git diff src/ | wc -l` -- must equal 0
 ```

@@ -76,7 +76,7 @@ Read all prior reports from the blackboard.
 
 ### Step 2: Identify foundation slices (always first)
 
-F-01 through F-07: Install TS + baseline tsconfig, typescript-eslint bootstrap, CI type-check gate, Type-coverage baseline, Module-by-module strictness scaffold, tsx / dev runner, Git rename readiness.
+F-01 through F-07: Install TS + tsgo (`@typescript/native-preview`) + baseline tsconfig, typescript-eslint bootstrap, CI type-check gate (tsc gates the mixed allowJs surface for now; a `typecheck:ts7` script runs `tsgo --noEmit` side-by-side on the TS-green set from the first renamed module), Type-coverage baseline, Module-by-module strictness scaffold (seed gated by `tsgo -p tsconfig.strict.json --noEmit`), tsx / dev runner, Git rename readiness.
 
 ### Step 3: Identify typed-boundary slices
 
@@ -92,7 +92,7 @@ FW-01..N: Route cohort migration, Data layer migration, Test runner migration.
 
 ### Step 6: Cleanup slices (always last)
 
-C-01 through C-06: Turn off `allowJs`, Raise type-coverage gate, Enable final strict flags, Remove remaining `any`, Remove `@ts-nocheck`, Publish contract packages.
+C-01 through C-06: Turn off `allowJs`, Promote tsgo to the sole typecheck gate (C-01b: `npm run typecheck` = `tsgo --noEmit`; tsc retired to the emit/tooling lane), Raise type-coverage gate, Enable final strict flags, Remove remaining `any`, Remove `@ts-nocheck`, Publish contract packages.
 
 ### Step 7: Build dependency DAG
 

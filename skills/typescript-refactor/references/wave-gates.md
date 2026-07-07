@@ -77,7 +77,7 @@ Reject. No label from the set; "fast and modern" is opinion.
 | 1 | Report persisted | `wave-3/migration-slices.md` exists |
 | 2 | DAG present | contains a ` ```mermaid ` fence with `graph TD` |
 | 3 | Slice schema complete | every slice has `id`, `acceptance`, `cutover`, `rollback` populated -- no empty rollback, never "fix forward" |
-| 4 | AC quality | every acceptance criterion contains an action verb from story-schema.md's approved set (`exists`, `passes`, `exit 0`, `tsc --noEmit`, `grep`, ...) |
+| 4 | AC quality | every acceptance criterion contains an action verb from story-schema.md's approved set (`exists`, `passes`, `exit 0`, `tsgo --noEmit`, `grep`, ...) |
 | 5 | Dependencies resolve | every id in `blocks`/`blocked-by` names a slice defined in the same catalog |
 | 6 | Size guard | no slice exceeds the story-schema.md size guard (>5 AC or >10 scope files) |
 

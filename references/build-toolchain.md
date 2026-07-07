@@ -6,10 +6,10 @@ Distilled guide to TypeScript build tools: tsc, swc, esbuild, tsup, tsdown, Vite
 
 | Scenario | Primary tool | Support tool |
 |---|---|---|
-| Publish a library (ESM + CJS + d.ts) | `tsup` or `tsdown` | `tsc --noEmit` for type-check |
+| Publish a library (ESM + CJS + d.ts) | `tsup` or `tsdown` | `tsgo --noEmit` for type-check |
 | Zero-dep, ESM-only library | `tsc` emit-only | none |
-| Build a Node server / CLI | `tsup` or `tsx` dev + `tsc --noEmit` | `tsx watch` or `node --watch` |
-| Build a React/Vue/Svelte SPA | `Vite` | `tsc --noEmit` in parallel |
+| Build a Node server / CLI | `tsup` or `tsx` dev + `tsgo --noEmit` | `tsx watch` or `node --watch` |
+| Build a React/Vue/Svelte SPA | `Vite` | `tsgo --noEmit` in parallel |
 | Legacy webpack project | `webpack` + `swc-loader` | `fork-ts-checker-webpack-plugin` |
 | Rust-powered webpack replacement | `Rspack` or `Rsbuild` | `builtin:swc-loader` |
 | Next.js, Remix, TanStack Start | framework-native | nothing extra |
@@ -17,7 +17,7 @@ Distilled guide to TypeScript build tools: tsc, swc, esbuild, tsup, tsdown, Vite
 | Standalone binary from TS | `Bun build --compile` | none |
 | Run a one-off script | `tsx`, `bun`, `deno`, or `node --experimental-strip-types` | none |
 | Tight type-check loop in CI | `tsc --build --incremental` | `.tsbuildinfo` |
-| Edge / Cloudflare Worker | `Wrangler` (esbuild) or `Vite` | `tsc --noEmit` |
+| Edge / Cloudflare Worker | `Wrangler` (esbuild) or `Vite` | `tsgo --noEmit` |
 
 **Baseline heuristic:** for any library, pick `tsup` or `tsdown`. For any app, pick `Vite`. For any script or server in dev, pick `tsx` or `bun`.
 
@@ -51,7 +51,8 @@ Distilled guide to TypeScript build tools: tsc, swc, esbuild, tsup, tsdown, Vite
 {
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsgo --noEmit",
+    "typecheck:ts6": "tsc --noEmit",
     "ci": "npm-run-all --parallel typecheck build"
   }
 }

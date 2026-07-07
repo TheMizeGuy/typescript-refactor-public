@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0] - 2026-07-06
+
+### Changed
+
+- Adopted the tsgo / TypeScript 7 standard across every emitted plan artifact:
+  - `typescript-target-architect`: section A now recommends tsgo (`@typescript/native-preview`) as the primary and only typecheck gate; tsc is scoped to the emit/tooling lane (`.d.ts` builds, ts-jest, Stryker) -- dual-compiler, not a swap. Build-toolchain and CI-gate rows updated; TS version default raised to stable 6.x.
+  - `migration-slicer`: F-01 installs tsgo day one; F-03 defines the side-by-side `typecheck:ts7` script that grows the tsgo-green set per slice; new cleanup step C-01b promotes tsgo to the sole gate.
+  - Story schema + plan verifier + wave gates: `tsgo --noEmit` added to the approved AC verb set; TSR-F-01 worked example updated (typescript >=6.0 + native-preview, tsgo verification commands).
+  - `references/build-toolchain.md`: type-check column and scripts block moved to the tsgo gate (`typecheck:ts6` retained as the legacy lane).
+
 All notable changes to the `typescript-refactor` plugin will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),

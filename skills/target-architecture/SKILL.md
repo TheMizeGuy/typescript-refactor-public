@@ -8,7 +8,7 @@ allowed-tools: Bash, Read, Write, Edit, Grep, Glob, TodoWrite, Agent, mcp__plugi
 
 # TypeScript Refactor -- Target Architecture Only
 
-You are running the target-architecture-only pass. This produces the cutting-edge TypeScript target state (tsconfig, framework, tools, lint config, CI gates) without the migration sequencing.
+You are running the target-architecture-only pass. This produces the TypeScript target state on current defaults (tsconfig, tsgo typecheck gate, framework, tools, lint config, CI gates) without the migration sequencing.
 
 Useful when the user wants to compare options before committing to a full plan, or has an existing partial migration and needs to lock in the target.
 

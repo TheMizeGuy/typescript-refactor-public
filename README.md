@@ -7,7 +7,7 @@ JavaScript-to-TypeScript refactor planning specialist for [Claude Code](https://
 A **planning plugin**, not an implementation plugin. It does not write to your codebase. It produces:
 
 1. A consolidated migration plan with evidence labels (`SOURCE` / `BUILD` / `RUNTIME` / `DOC` / `INFERRED` / `TARGET-ASSUMPTION` / `OPEN-QUESTION`) -- see `skills/typescript-refactor/references/wave-gates.md` for the full vocabulary and the acceptance gate applied after each wave
-2. A target-state architecture (tsconfig, framework, validation, data layer, test runner, CI gates) with reference citations
+2. A target-state architecture (tsconfig, framework, validation, data layer, test runner, CI gates -- with tsgo, the TypeScript 7 native compiler, as the primary typecheck gate) with reference citations
 3. A phased slice catalog (Foundation -> Boundaries -> Renames -> Framework -> Cleanup) with explicit dependencies and rollback plans
 4. A Mermaid dependency DAG
 5. One scrum-master-format story file per slice

@@ -54,6 +54,12 @@ Produce a recommendation in every row. Cite evidence class (SOURCE/INFERRED/TARG
 
 ### A. TypeScript version and compiler
 
+| Decision | Default recommendation |
+|---|---|
+| TS version | Latest stable 6.x (check `npm view typescript version`) for the emit/tooling lane |
+| Typecheck gate | **tsgo** (`@typescript/native-preview`, the TypeScript 7 native compiler) is the primary and only typecheck gate: `npx tsgo --noEmit`, `npm run typecheck` mapped to it, CI blocks on it. A surface tsgo cannot check yet (verified by running it, not assumed) stays on tsc temporarily; grow the tsgo-green set per slice and plan the promotion slice that retires the tsc gate |
+| Compiler variant (emit/tooling lane only) | `tsc` solely for `.d.ts` emit and TS6-compiler-API tooling (ts-jest, Stryker); `swc` or `esbuild` for JS transpile if speed matters. Dual-compiler, not a swap — tsgo gates, tsc emits |
+
 ### B. tsconfig strictness (the heart of the plan)
 
 Produce the full target `tsconfig.json` with every flag justified. The default target:
@@ -94,8 +100,8 @@ Produce the full target `tsconfig.json` with every flag justified. The default t
 
 | Project kind | Recommended toolchain |
 |---|---|
-| App (web bundle) | Vite + tsc --noEmit for CI |
-| App (server) | `tsx` (dev) + `tsc` (build) or Node 22.6+ `--experimental-strip-types` |
+| App (web bundle) | Vite + tsgo --noEmit for CI |
+| App (server) | `tsx` (dev) + `tsc` (build emit) or Node 22.6+ `--experimental-strip-types`; typecheck gate stays tsgo |
 | Library (dual ESM/CJS + .d.ts) | `tsup` or `tsdown` + `attw` + `publint` |
 | Monorepo | pnpm + Turborepo (default) or Nx |
 | CLI | `tsup` or `unbuild` + single-file bundle |
@@ -129,7 +135,7 @@ Produce the full target `tsconfig.json` with every flag justified. The default t
 
 | Gate | Command |
 |---|---|
-| Typecheck | `tsc --noEmit` or `tsc --build` |
+| Typecheck | `npx tsgo --noEmit` per surface (tsgo lacks full `--build` composite support — keep `tsc --build` only in the `.d.ts` emit lane, never as the gate) |
 | Lint | `eslint .` or `biome ci .` |
 | Test | `vitest run` |
 | Type coverage | `npx type-coverage --at-least <high-water-mark>` |

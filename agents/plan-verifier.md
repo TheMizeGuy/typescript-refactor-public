@@ -65,7 +65,7 @@ Parse the Mermaid graph. Run: cycle detection, unreachable-node detection, dangl
 
 ### Step 5: AC quality audit
 
-For every slice, check that every AC contains at least one action verb from: `exists, returns, passes, reports, contains, matches, succeeds, fails, exit 0, exit code, >=, <=, >0 hit, 0 hits, tsc --noEmit, type-coverage, eslint, vitest, grep`.
+For every slice, check that every AC contains at least one action verb from: `exists, returns, passes, reports, contains, matches, succeeds, fails, exit 0, exit code, >=, <=, >0 hit, 0 hits, tsgo --noEmit, tsc --noEmit, type-coverage, eslint, vitest, grep`.
 
 ### Step 6: Scope-size audit
 

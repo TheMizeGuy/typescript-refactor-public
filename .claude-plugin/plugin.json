@@ -1,7 +1,7 @@
 {
   "name": "typescript-refactor",
-  "version": "0.1.2",
-  "description": "JavaScript-to-TypeScript refactor planning specialist, running on the session model (always the strongest available Claude). Dispatches a full team of 7 read-only senior planner agents in sequential waves (inventory, target architecture, migration slicing, verification) to produce an evidence-tagged phased migration plan, scrum-master-format per-story markdown files, Mermaid dependency DAG, and dispatch wave plan. Grounded in embedded TypeScript reference files covering strict mode, modules, build tooling, testing, monorepos, security, and migration doctrine. Cutting-edge TS practices: strict + noUncheckedIndexedAccess + exactOptionalPropertyTypes, verbatimModuleSyntax, erasable-syntax-only, Zod at boundaries, branded types, Drizzle/Prisma, Fastify/Hono, Vitest, pnpm + turborepo, type-coverage CI gates.",
+  "version": "0.2.0",
+  "description": "JavaScript-to-TypeScript refactor planning specialist, running on the session model (always the strongest available Claude). Dispatches a full team of 7 read-only senior planner agents in sequential waves (inventory, target architecture, migration slicing, verification) to produce an evidence-tagged phased migration plan, scrum-master-format per-story markdown files, Mermaid dependency DAG, and dispatch wave plan. Integrates directly with the scrum-master plugin for execution handoff. Grounded in the 19-file TypeScript knowledge vault plus cross-language migration doctrine. Current TS defaults: tsgo (TypeScript 7) as the primary typecheck gate, strict + noUncheckedIndexedAccess + exactOptionalPropertyTypes, verbatimModuleSyntax, erasable-syntax-only, Zod at boundaries, branded types, Drizzle/Prisma, Fastify/Hono, Vitest, pnpm + turborepo, type-coverage CI gates.",
   "author": {
     "name": "TheMizeGuy",
     "email": "ben@meipath.com",
@@ -11,6 +11,7 @@
   "repository": "https://github.com/TheMizeGuy/typescript-refactor-public",
   "keywords": [
     "typescript",
+    "tsgo",
     "javascript",
     "migration",
     "refactor",
